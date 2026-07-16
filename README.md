@@ -54,3 +54,4 @@ npx prisma db seed
 - `/dashboard/projects` — project list and detail pages (progress, milestones, allocations, budget)
 - `/dashboard/resources` — team utilization matrix across active projects
 - `/dashboard/admin/users` — user management and role assignment (Admin only)
+# performance-dashboard
