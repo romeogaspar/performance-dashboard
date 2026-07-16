@@ -9,7 +9,8 @@ import {
 import { db } from "@/lib/db";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { KpiCard } from "@/components/dashboard/KpiCard";
 import { ProjectStatusChart } from "@/components/charts/ProjectStatusChart";
 import { BudgetOverviewChart } from "@/components/charts/BudgetOverviewChart";
@@ -151,14 +152,12 @@ export default async function DashboardOverviewPage() {
                 </span>
               </Link>
             ))}
-            <Button
-              render={<Link href="/dashboard/projects" />}
-              variant="ghost"
-              className="w-full justify-between"
-              size="sm"
+            <Link
+              href="/dashboard/projects"
+              className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "w-full justify-between")}
             >
               View all projects <ArrowRight className="h-4 w-4" />
-            </Button>
+            </Link>
           </CardContent>
         </Card>
       </div>

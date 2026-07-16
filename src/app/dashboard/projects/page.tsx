@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import { requireSession } from "@/lib/auth-guards";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import {
   Table,
@@ -41,10 +41,10 @@ export default async function ProjectsPage() {
           </p>
         </div>
         {isAdmin && (
-          <Button render={<Link href="/dashboard/projects/new" />}>
+          <Link href="/dashboard/projects/new" className={buttonVariants()}>
             <Plus className="h-4 w-4" />
             New Project
-          </Button>
+          </Link>
         )}
       </div>
 

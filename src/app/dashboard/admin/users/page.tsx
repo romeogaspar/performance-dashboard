@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth-guards";
 import { deleteUser } from "@/lib/actions/users";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   Table,
@@ -35,10 +35,10 @@ export default async function ManageUsersPage() {
             {users.length} user{users.length !== 1 ? "s" : ""} with dashboard access
           </p>
         </div>
-        <Button render={<Link href="/dashboard/admin/users/new" />}>
+        <Link href="/dashboard/admin/users/new" className={buttonVariants()}>
           <Plus className="h-4 w-4" />
           New User
-        </Button>
+        </Link>
       </div>
 
       <Card>

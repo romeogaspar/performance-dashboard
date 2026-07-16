@@ -8,7 +8,8 @@ import { deleteAllocation } from "@/lib/actions/allocations";
 import { deleteBudgetEntry } from "@/lib/actions/budget";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -111,14 +112,13 @@ export default async function ProjectDetailPage({
 
         {isAdmin && (
           <div className="flex shrink-0 gap-2">
-            <Button
-              render={<Link href={`/dashboard/projects/${project.id}/edit`} />}
-              variant="outline"
-              size="sm"
+            <Link
+              href={`/dashboard/projects/${project.id}/edit`}
+              className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
             >
               <Pencil className="h-4 w-4" />
               Edit
-            </Button>
+            </Link>
             <ConfirmDeleteButton
               action={deleteProject.bind(null, project.id)}
               confirmMessage="Delete project?"
