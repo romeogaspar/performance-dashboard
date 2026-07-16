@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Performance Matrix Dashboard
+
+A web-based program dashboard for tracking project progress, resource allocation, and budget, with role-based access control (Admin / User).
+
+## Stack
+
+- **Next.js 16** (App Router) + TypeScript + Tailwind CSS
+- **shadcn/ui** (Base UI) component library
+- **Prisma** ORM against a **Supabase Postgres** database (provisioned via the Vercel Marketplace)
+- **NextAuth (Auth.js v5)** with a Credentials provider — email/password login, JWT sessions, role stored on the user record
+- **Recharts** for data visualization
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
+npx prisma generate
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The `.env.local` file (already provisioned via `vercel env pull`) contains the Supabase connection strings and `AUTH_SECRET`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Open [http://localhost:3000](http://localhost:3000).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Demo accounts
 
-## Learn More
+| Role  | Email               | Password    |
+|-------|---------------------|-------------|
+| Admin | admin@example.com   | Admin123!   |
+| User  | user@example.com    | User123!    |
 
-To learn more about Next.js, take a look at the following resources:
+Re-seed demo data at any time with:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npx prisma db seed
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Roles
 
-## Deploy on Vercel
+- **Admin** — full access: create/edit/delete projects, assign resources, record budget entries, manage users and roles.
+- **User** — read-only access to the program overview, project list/detail, and resource allocation matrix.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Data model
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `Project` — name, code, status, priority, progress %, budget total, manager, dates
+- `Milestone` — per-project checkpoints
+- `ResourceAllocation` — links a `User` to a `Project` with an allocation percentage and role
+- `BudgetEntry` — allocated or actual-expense line items per project, by category
+- `User` — name, email, password hash, role (`ADMIN` / `USER`), title, weekly capacity
+
+## Key pages
+
+- `/dashboard` — program overview: KPIs, status breakdown, budget and progress charts
+- `/dashboard/projects` — project list and detail pages (progress, milestones, allocations, budget)
+- `/dashboard/resources` — team utilization matrix across active projects
+- `/dashboard/admin/users` — user management and role assignment (Admin only)
